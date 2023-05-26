@@ -10,25 +10,47 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
+// Produto
 model Produto {
-  id Int @id @default(autoincrement())
-  tipo String
-  nome String
-  marca String 
-  modelo String
+  id                    Int @id @default(autoincrement())
+  data                  DateTime @default(now())
+  tipo                  String
+  nome                  String
+  marca                 String 
+  modelo                String
 
-  data DateTime @default(now())
-  detalhes Detalhe[]
+  detalhes              Detalhe[]
+  imagens               Imagens[] 
+  opniao                Opniao?
 }
 
+// Expecificações do produto
 model Detalhe {
-  id Int @id @default(autoincrement())
-  nome_detalhe String
-  tipo_detalhe String
+  id                    Int                  @id @default(autoincrement())
+  caracteristica        String
+  descricao             String
 
-  produto Produto @relation(fields: [produto_id], references: [id])
-  produto_id Int
+  produto               Produto               @relation(fields: [produto_id], references: [id], onUpdate: Cascade, onDelete: Cascade) 
+  produto_id            Int
+}
+
+//  
+model Opniao {
+  id                    Int                   @id 
+  geral                 Decimal
+  tecnico               Decimal
+  custo_beneficio       Decimal
+
+  produto               Produto               @relation(fields: [id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+}
+
+//  
+model Imagens {
+  id                    Int                   @id @default(autoincrement())    
+  url_imagem            String               
+
+  produto               Produto               @relation(fields: [produto_id], references: [id], onUpdate: Cascade, onDelete: Cascade) 
+  produto_id            Int  
 }
 
 

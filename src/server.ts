@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 
 import { router } from './router';
-import { Create, Find } from './controllers/ProdutoController';
+import { Create, Delete, Find, Update } from './controllers/ProdutoController';
 
 const app = express();
 
@@ -14,8 +14,16 @@ app.use(router);
 const adicionar = new Create();
 router.post("/Adicionar", adicionar.handle)
 
-// Adicionar
-const find = new Find();
-router.get("/Buscar", find.handle)
+// Buscar
+const buscar = new Find();
+router.get("/Buscar", buscar.handle)
+
+// Buscar
+const alterar = new Update();
+router.post("/Alterar", alterar.handle)
+
+// Buscar
+const excluir = new Delete();
+router.delete("/Excluir", excluir.handle)
 
 app.listen(4003, () => console.log("server is running on PORT 4003"))
