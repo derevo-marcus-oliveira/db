@@ -30,7 +30,7 @@ model Detalhe {
   caracteristica        String
   descricao             String
 
-  produto               Produto               @relation(fields: [produto_id], references: [id], onUpdate: Cascade, onDelete: Cascade) 
+  produto               Produto?               @relation(fields: [produto_id], references: [id], onUpdate: NoAction, onDelete: Cascade) 
   produto_id            Int
 }
 
@@ -51,6 +51,12 @@ model Imagens {
 
   produto               Produto               @relation(fields: [produto_id], references: [id], onUpdate: Cascade, onDelete: Cascade) 
   produto_id            Int  
+}
+
+model Enumeradores {
+  id                    Int @id @default(autoincrement())    
+  type                  String
+  name                  String
 }
 
 

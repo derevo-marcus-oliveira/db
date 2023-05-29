@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { prisma } from "../prismaClient";
 
 
+
 export class Create {
     async handle(request: Request, response: Response) {
 
@@ -44,12 +45,13 @@ export class Create {
 export class Find {
     async handle(request: Request, response: Response) {
 
-        const { tipo, nome, marca, modelo } = request.body;
+        const { id, tipo, nome, marca, modelo } = request.body;
 
         try {
             
             const produto = await prisma.produto.findMany({
                 where: {
+                    id,
                     tipo,
                     nome,
                     marca,
@@ -77,23 +79,23 @@ export class Delete {
 
         try { 
             
-            const imagens = await prisma.imagens.deleteMany({
-                where : {
-                    produto_id: id
-                }                
-            })  
+            // const imagens = await prisma.imagens.deleteMany({
+            //     where : {
+            //         produto_id: id
+            //     }                
+            // })  
 
-            const detalhes = await prisma.detalhe.deleteMany({
-                where : {
-                    produto_id: id
-                }                
-            })    
+            // const detalhes = await prisma.detalhe.deleteMany({
+            //     where : {
+            //         produto_id: id
+            //     }                
+            // })    
             
-            const opniao = await prisma.opniao.delete({
-                where : {
-                    id
-                }                
-            })
+            // const opniao = await prisma.opniao.delete({
+            //     where : {
+            //         id
+            //     }                
+            // })
 
             const produto = await prisma.produto.delete({
                 where : {
